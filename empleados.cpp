@@ -1,138 +1,55 @@
-#include <iostream>
-#include <string.h>
-#include <fstream>
-#include <stdlib.h>
+#include<iostream>
+#include<fstream>
+#include <cstring>
 using namespace std;
+struct tipo {
+   char apellido[30];
+   char nombre[30];
+  
+};
+int main() {
 
-
-typedef struct {
-    char calle[30];
-    int numero;
-    char provincia[30];
-    char pais[30];
-} direccion;
-
-typedef struct {
-    char nombre[30];
-    float sueldo;
-    direccion dir; 
-} empleado;
-
-void carga(int num, empleado emp[]);
-void lecturaTotal(int num, empleado emp[]);
-void escribirArchivo(empleado emp[]);
-int leerArchivo(char *nombre, int num);
-
-int main()
-{
-    empleado emp[2];
-    
-    carga(1, emp);
-    //lecturaTotal(2, emp);
-    leerArchivo("empleados.dat", 5);
-    
-
-    system("pause");
-    return 0;
-}
-
-//funcion de carga de empleados
-//tengo que hacer que tenga un loop y que la carga de empleados sea manejada por el usuario.
-
-void carga(int num, empleado emp[]){
-    for (int i = 0; i < num; i++)
-    {
-        std::cout<<"\ningrese el nombre del empleado numero "<<i+1<<": ";
-        std::cin>>emp[i].nombre;
-        std::cout<<"\ningrese el sueldo del empleado numero "<<i+1<<": ";
-        std::cin>>emp[i].sueldo;
-            std::cout<<"\ningrese el domicilio del empleado";
-            std::cout<<"\ningrese la calle: ";
-            std::cin>>emp[i].dir.calle;
-            std::cout<<"\ningrese la numeracion: ";
-            std::cin>>emp[i].dir.numero;
-            std::cout<<"\ningrese la provincia: ";
-            std::cin>>emp[i].dir.provincia;
-            std::cout<<"\ningrese el pais: ";
-            std::cin>>emp[i].dir.pais;
-    escribirArchivo(emp);    
-    }
-}
-
-//funcion de listado total de empleados en memoria
-
-void lecturaTotal(int num, empleado emp[]){
-    for (int i = 0; i < num; i++)
-    {
-        std::cout<<"\nel nombre del empleado numero "<<i+1<<": ";
-        std::cout<<emp[i].nombre;
-        std::cout<<"\nel sueldo del empleado numero "<<i+1<<": ";
-        std::cout<<emp[i].sueldo;
-        std::cout<<"\nel domicilio del empleado es: ";
-            std::cout<<"\ncalle: ";
-            std::cout<<emp[i].dir.calle;
-            std::cout<<"\nnumeracion: ";
-            std::cout<<emp[i].dir.numero;
-            std::cout<<"\nprovincia: ";
-            std::cout<<emp[i].dir.provincia;
-            std::cout<<"\npais: ";
-            std::cout<<emp[i].dir.pais<<"\n";
-        
-    
-    }
-}
-
-//esto es como apilar registros en un archivo en c, tengo aun que averiguar la manera de hacerlo con un stream en c++ (igual hace solo un dia que estoy estudiando c++)
-
-void escribirArchivo(empleado emp[]){
-    FILE *fichero;
-    fichero = fopen("empleados.dat", "ab");
-    if(!fichero) {
-      cout << "Error al escribir el archivo!" << endl;
-      
-    }
-    fwrite(emp, sizeof(empleado), 1, fichero);
-    fclose(fichero);
-}
-
-//tengo que hacer que esto funcione buscando el EOF. otro dia buscare como.
-
-int leerArchivo(char *nombre, int num){
-   ifstream fichero(nombre, ios::out | ios::binary);
-   if(!fichero) {
-      cout << "\nNo existe el archivo" << endl;
-      return 1;
-   }
-   empleado emp[20];
-   for(int i = 0; i < num; i++)
-   {
-      fichero.read((char *) &emp[i], sizeof(empleado));
-   }
-   fichero.close();
+    /*bueno, borron y cuenta nueva, voy a tratar de abordar esto usando solo metodos de c++ desde el principio*/
    
-    
-    //despues la modularizare mas...
+   tipo escribir;
+   tipo leer;
 
-    std::cout<<"\naca empieza la lectura de archivo\n";
+   //declaro dos struct para diferenciar el de esritura y el de lectura
 
-    for (int i = 0; i < num; i++)
-    {
-        std::cout<<"\nel nombre del empleado ";
-        std::cout<<emp[i].nombre;
-        std::cout<<"\nel sueldo del empleado ";
-        std::cout<<emp[i].sueldo;
-        std::cout<<"\nel domicilio del empleado es: ";
-            std::cout<<"\ncalle: ";
-            std::cout<<emp[i].dir.calle;
-            std::cout<<"\nnumeracion: ";
-            std::cout<<emp[i].dir.numero;
-            std::cout<<"\nprovincia: ";
-            std::cout<<emp[i].dir.provincia;
-            std::cout<<"\npais: ";
-            std::cout<<emp[i].dir.pais<<"\n";
+   std::cout<<"nombre: ";
+   //strcpy(escribir.apellido, "pepe");
+   std::cin>>escribir.nombre;
+   std::cout<<"apellido: ";
+   std::cin>>escribir.apellido;
+
+   //relleno el struct de escritura y lo envio al bloque de escritura, hay que usar ios::app para que el archivo se prepare para apilar nuevos registros al final.
+   
+
+   ofstream escribirArchivo("archivo.dat", ios::binary | ios::app);
+   escribirArchivo.write((char*)&escribir, sizeof(tipo));
+   escribirArchivo.close();
+
+  
+   //lectura del archivo
+
+   ifstream leerArchivo("archivo.dat", ios::binary );
+   
+   
+   //di muchas vueltas para lograr la lectura secuencial. Al final el algoritmo es este, una lectura previa y que entre a un while que constate que no este en el EOF, la gracia es que la comprobacion va en la segunda lectura.
         
-    
-    }
+   leerArchivo.read((char*)&leer, sizeof(tipo));
+   
+   while (!leerArchivo.eof())
+   {
+        std::cout<<leer.apellido<< endl;
+        std::cout<<leer.nombre<< endl;
+        leerArchivo.read((char*)&leer, sizeof(tipo));
+   }
+   leerArchivo.close();
+   
+   //esto es la estructura mas basica que encontre para escribir y leer struct en binarios. Hay un problema si no usas elementos de un tamanio certero en el struct. Si le pones un "string" en lugar de un char[] no podes leer saltando registros de tamanio fijo. Voy a ver como se resuelve eso otro dia.
 
-    return 1;
+
+   system("pause");
+   return 0;
 }
