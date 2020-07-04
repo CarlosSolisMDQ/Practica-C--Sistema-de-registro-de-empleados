@@ -2,31 +2,56 @@
 #include<fstream>
 #include <cstring>
 using namespace std;
-struct tipo {
+
+typedef struct {
+   char calle[30];
+   int numero;
+   char ciudad[30];
+   char provincia[30];
+   char pais[30];
+} domicilio;
+
+struct empleado {
    char apellido[30];
    char nombre[30];
-  
+   domicilio dir;
 };
+
+void cargarEmpleado(empleado *emp);
+void imprimirEmpleado(empleado emp);
+
 int main() {
 
     /*bueno, borron y cuenta nueva, voy a tratar de abordar esto usando solo metodos de c++ desde el principio*/
    
-   tipo escribir;
-   tipo leer;
+   empleado escribir;
+   empleado leer;
 
    //declaro dos struct para diferenciar el de esritura y el de lectura
-
+/*
    std::cout<<"nombre: ";
    //strcpy(escribir.apellido, "pepe");
    std::cin>>escribir.nombre;
    std::cout<<"apellido: ";
    std::cin>>escribir.apellido;
-
+   std::cout<<"calle: ";
+   std::cin>>escribir.dir.calle;
+   std::cout<<"numero: ";
+   std::cin>>escribir.dir.numero;
+   std::cout<<"ciudad: ";
+   std::cin>>escribir.dir.ciudad;
+   std::cout<<"provincia: ";
+   std::cin>>escribir.dir.provincia;
+   std::cout<<"pais: ";
+   std::cin>>escribir.dir.pais;
+*/
    //relleno el struct de escritura y lo envio al bloque de escritura, hay que usar ios::app para que el archivo se prepare para apilar nuevos registros al final.
+
+   cargarEmpleado(&escribir);
    
 
    ofstream escribirArchivo("archivo.dat", ios::binary | ios::app);
-   escribirArchivo.write((char*)&escribir, sizeof(tipo));
+   escribirArchivo.write((char*)&escribir, sizeof(empleado));
    escribirArchivo.close();
 
   
@@ -37,13 +62,12 @@ int main() {
    
    //di muchas vueltas para lograr la lectura secuencial. Al final el algoritmo es este, una lectura previa y que entre a un while que constate que no este en el EOF, la gracia es que la comprobacion va en la segunda lectura.
         
-   leerArchivo.read((char*)&leer, sizeof(tipo));
+   leerArchivo.read((char*)&leer, sizeof(empleado));
    
    while (!leerArchivo.eof())
    {
-        std::cout<<leer.apellido<< endl;
-        std::cout<<leer.nombre<< endl;
-        leerArchivo.read((char*)&leer, sizeof(tipo));
+        imprimirEmpleado(leer);
+        leerArchivo.read((char*)&leer, sizeof(empleado));
    }
    leerArchivo.close();
    
@@ -52,4 +76,38 @@ int main() {
 
    system("pause");
    return 0;
+}
+
+//empiezo modularizando la carga, esta tiene que recibir un puntero porque retorna los valores a al struct
+
+void cargarEmpleado(empleado *emp){
+     
+   std::cout<<"nombre: ";
+   //strcpy(escribir.apellido, "pepe");
+   std::cin>>(*emp).nombre;
+   std::cout<<"apellido: ";
+   std::cin>>(*emp).apellido;
+   std::cout<<"calle: ";
+   std::cin>>(*emp).dir.calle;
+   std::cout<<"numero: ";
+   std::cin>>(*emp).dir.numero;
+   std::cout<<"ciudad: ";
+   std::cin>>(*emp).dir.ciudad;
+   std::cout<<"provincia: ";
+   std::cin>>(*emp).dir.provincia;
+   std::cout<<"pais: ";
+   std::cin>>(*emp).dir.pais;
+}
+
+//la impresion de el registro la mando a esta funcion. paso el parametro por copia porque solo hace una salida a pantalla.
+
+void imprimirEmpleado(empleado emp){
+   std::cout<<"------------------";
+   std::cout<<emp.apellido<< endl;
+   std::cout<<emp.nombre<< endl;
+   std::cout<<emp.dir.calle<< endl;
+   std::cout<<emp.dir.ciudad<< endl;
+   std::cout<<emp.dir.provincia<< endl;
+   std::cout<<emp.dir.pais<< endl;
+   std::cout<<"------------------";
 }
