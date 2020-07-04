@@ -19,6 +19,8 @@ struct empleado {
 
 void cargarEmpleado(empleado *emp);
 void imprimirEmpleado(empleado emp);
+void leerArchivoBinario(empleado *leer);
+void escribirArchivoBinario(empleado emp);
 
 int main() {
 
@@ -27,50 +29,21 @@ int main() {
    empleado escribir;
    empleado leer;
 
-   //declaro dos struct para diferenciar el de esritura y el de lectura
-/*
-   std::cout<<"nombre: ";
-   //strcpy(escribir.apellido, "pepe");
-   std::cin>>escribir.nombre;
-   std::cout<<"apellido: ";
-   std::cin>>escribir.apellido;
-   std::cout<<"calle: ";
-   std::cin>>escribir.dir.calle;
-   std::cout<<"numero: ";
-   std::cin>>escribir.dir.numero;
-   std::cout<<"ciudad: ";
-   std::cin>>escribir.dir.ciudad;
-   std::cout<<"provincia: ";
-   std::cin>>escribir.dir.provincia;
-   std::cout<<"pais: ";
-   std::cin>>escribir.dir.pais;
-*/
-   //relleno el struct de escritura y lo envio al bloque de escritura, hay que usar ios::app para que el archivo se prepare para apilar nuevos registros al final.
+   //declaro dos struct auxiliares para diferenciar el de esritura y el de lectura
+
+   //relleno el struct, lo envio al bloque de escritura, hay que usar ios::app para que el archivo se prepare para apilar nuevos registros al final.
 
    cargarEmpleado(&escribir);
    
+   //escritura del archivo binario con el empleado cargado
 
-   ofstream escribirArchivo("archivo.dat", ios::binary | ios::app);
-   escribirArchivo.write((char*)&escribir, sizeof(empleado));
-   escribirArchivo.close();
+   escribirArchivoBinario(escribir);
 
-  
    //lectura del archivo
 
-   ifstream leerArchivo("archivo.dat", ios::binary );
+   leerArchivoBinario(&leer);
    
-   
-   //di muchas vueltas para lograr la lectura secuencial. Al final el algoritmo es este, una lectura previa y que entre a un while que constate que no este en el EOF, la gracia es que la comprobacion va en la segunda lectura.
-        
-   leerArchivo.read((char*)&leer, sizeof(empleado));
-   
-   while (!leerArchivo.eof())
-   {
-        imprimirEmpleado(leer);
-        leerArchivo.read((char*)&leer, sizeof(empleado));
-   }
-   leerArchivo.close();
-   
+  
    //esto es la estructura mas basica que encontre para escribir y leer struct en binarios. Hay un problema si no usas elementos de un tamanio certero en el struct. Si le pones un "string" en lugar de un char[] no podes leer saltando registros de tamanio fijo. Voy a ver como se resuelve eso otro dia.
 
 
@@ -81,7 +54,7 @@ int main() {
 //empiezo modularizando la carga, esta tiene que recibir un puntero porque retorna los valores a al struct
 
 void cargarEmpleado(empleado *emp){
-     
+   std::cout<<"\nIngrese los datos del empleado: "<<endl;  
    std::cout<<"nombre: ";
    //strcpy(escribir.apellido, "pepe");
    std::cin>>(*emp).nombre;
@@ -102,12 +75,35 @@ void cargarEmpleado(empleado *emp){
 //la impresion de el registro la mando a esta funcion. paso el parametro por copia porque solo hace una salida a pantalla.
 
 void imprimirEmpleado(empleado emp){
-   std::cout<<"------------------";
+   std::cout<<"------------------"<< endl;
    std::cout<<emp.apellido<< endl;
    std::cout<<emp.nombre<< endl;
    std::cout<<emp.dir.calle<< endl;
    std::cout<<emp.dir.ciudad<< endl;
    std::cout<<emp.dir.provincia<< endl;
    std::cout<<emp.dir.pais<< endl;
-   std::cout<<"------------------";
+   std::cout<<"------------------"<< endl;
+}
+
+//funcion de lectura secuencial del archivo binario, esta funcion lista TODOS los registros.
+
+void leerArchivoBinario(empleado *leer){
+   //di muchas vueltas para lograr la lectura secuencial. Al final el algoritmo es este, una lectura previa y que entre a un while que constate que no este en el EOF, la gracia es que la comprobacion va en la segunda lectura.
+   ifstream leerArchivo("archivo.dat", ios::binary );     
+   leerArchivo.read((char*)leer, sizeof(empleado));
+   
+   while (!leerArchivo.eof())
+   {
+        imprimirEmpleado(*leer);
+        leerArchivo.read((char*)leer, sizeof(empleado));
+   }
+   leerArchivo.close();
+}
+
+//funcion de escritura del archivo binario, esta funcion escribe solo UN registro.
+
+void escribirArchivoBinario(empleado emp){
+   ofstream escribirArchivo("archivo.dat", ios::binary | ios::app);
+   escribirArchivo.write((char*)&emp, sizeof(empleado));
+   escribirArchivo.close();
 }
