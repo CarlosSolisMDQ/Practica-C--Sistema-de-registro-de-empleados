@@ -14,6 +14,7 @@ typedef struct {
 struct empleado {
    char apellido[30];
    char nombre[30];
+   int numeroEmp;
    domicilio dir;
 };
 
@@ -21,6 +22,7 @@ void cargarEmpleado(empleado *emp);
 void imprimirEmpleado(empleado emp);
 void leerArchivoBinario(empleado *leer);
 void escribirArchivoBinario(empleado emp);
+void borrarEmpleado(char apellido[]);
 
 int main() {
 
@@ -107,3 +109,29 @@ void escribirArchivoBinario(empleado emp){
    escribirArchivo.write((char*)&emp, sizeof(empleado));
    escribirArchivo.close();
 }
+
+//funcion de borrado de un registro. 
+
+void borrarEmpleado(char apellido[]){
+   empleado emp;
+   ofstream escrituraTemp ("temp.dat", ios::binary);
+   ifstream lecturaArch ("archivo.dat", ios::binary);
+
+   //preparo la lectura del binario y inicio un archivo temporal para hacer la recopilacion de los registros que no quiero descartar. Tendria que buscar si esto mismo se puede hacer sin salir de memoria, usando un buffer y no un archivo. Tambien tengo que ampliar el struct empleado para que registre su numero de empleado. y que una busqueda por nombre o lo que quiera retorne el numero de empleado.
+
+   //meter como condicion la instruccion de lectura no se me habia ocurrido, gracias internet.
+
+   while(lecturaArch.read((char*)&emp,sizeof(empleado))){
+     if(emp.apellido != apellido) {
+        //uso la propiedad aplellido porque no tengo lista la funcion que numere a los empleados. 
+        escrituraTemp.write((char*)&emp,sizeof(empleado));
+     }
+
+   }
+   lecturaArch.close();
+   escrituraTemp.close();
+
+   remove("archivo.dat");
+   rename("temp.dat","archivo.dat");
+}
+
