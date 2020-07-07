@@ -41,6 +41,10 @@ int main() {
 
    escribirArchivoBinario(escribir);
 
+   //Al fin pude hacer andar la funcion de borrado, simplemente no andaba porque me olvide de usar strcmp y estaba comparando string como si fueran enteros erroneamente.
+
+   borrarEmpleado("cool");
+
    //lectura del archivo
 
    leerArchivoBinario(&leer);
@@ -122,7 +126,7 @@ void borrarEmpleado(char apellido[]){
    //meter como condicion la instruccion de lectura no se me habia ocurrido, gracias internet.
 
    while(lecturaArch.read((char*)&emp,sizeof(empleado))){
-     if(emp.apellido != apellido) {
+     if(strcmp(emp.apellido, apellido)) {
         //uso la propiedad aplellido porque no tengo lista la funcion que numere a los empleados. 
         escrituraTemp.write((char*)&emp,sizeof(empleado));
      }
