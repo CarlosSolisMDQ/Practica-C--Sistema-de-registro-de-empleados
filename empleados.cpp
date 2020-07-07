@@ -23,6 +23,8 @@ void imprimirEmpleado(empleado emp);
 void leerArchivoBinario(empleado *leer);
 void escribirArchivoBinario(empleado emp);
 void borrarEmpleado(char apellido[]);
+int contarRegistros();
+int numeracionDeEmpleados();
 
 int main() {
 
@@ -43,9 +45,12 @@ int main() {
 
    //Al fin pude hacer andar la funcion de borrado, simplemente no andaba porque me olvide de usar strcmp y estaba comparando string como si fueran enteros erroneamente.
 
-   borrarEmpleado("cool");
+   //borrarEmpleado("cool");
 
    //lectura del archivo
+
+   int cuenta = contarRegistros();
+   cout<<cuenta<<endl;
 
    leerArchivoBinario(&leer);
    
@@ -76,6 +81,7 @@ void cargarEmpleado(empleado *emp){
    std::cin>>(*emp).dir.provincia;
    std::cout<<"pais: ";
    std::cin>>(*emp).dir.pais;
+   (*emp).numeroEmp = numeracionDeEmpleados();
 }
 
 //la impresion de el registro la mando a esta funcion. paso el parametro por copia porque solo hace una salida a pantalla.
@@ -88,6 +94,7 @@ void imprimirEmpleado(empleado emp){
    std::cout<<emp.dir.ciudad<< endl;
    std::cout<<emp.dir.provincia<< endl;
    std::cout<<emp.dir.pais<< endl;
+   std::cout<<emp.numeroEmp<<endl;
    std::cout<<"------------------"<< endl;
 }
 
@@ -139,3 +146,45 @@ void borrarEmpleado(char apellido[]){
    rename("temp.dat","archivo.dat");
 }
 
+//funcion de busqueda de empleado, le ingresamos un string y nos retorna el numero de empleado, si no existe nos retorna 
+
+int buscarEmpleado(char apellido[]){
+   empleado emp;
+   ifstream lecturaArch ("archivo.dat", ios::binary);
+
+   while(lecturaArch.read((char*)&emp,sizeof(empleado))){
+     if(strcmp(emp.apellido, apellido)) {
+        //uso la propiedad aplellido porque no tengo lista la funcion que numere a los empleados. 
+        //retorno la posicion del registro o su numero de empleado (cuando termine la funcion de numerar cliente)
+         return emp.numeroEmp;
+     } else {
+        cout<<"el empleado no existe";
+     }
+
+   }
+   lecturaArch.close();
+
+}
+
+//funcion para numerar los empleados.
+
+int numeracionDeEmpleados(){
+   //cuanto los registros y le sumo el actual, liego ingreso ese numero en el registro a escribir;
+   int total = contarRegistros();
+   return total++;
+    
+}
+
+//funcion para contar todos los registros que tenga en el archivo.
+
+int contarRegistros(){
+   int acumulador = 0;
+   empleado leer;
+   ifstream lecturaArch ("archivo.dat", ios::binary);
+   
+   while(lecturaArch.read((char*)&leer, sizeof(empleado))){
+      acumulador++;
+   }
+   lecturaArch.close();
+   return acumulador;
+}
