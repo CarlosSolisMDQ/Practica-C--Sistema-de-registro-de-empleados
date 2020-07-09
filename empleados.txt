@@ -1,0 +1,27 @@
+-----------------------
+Nombre: jojo
+Apellido: joestar
+Calle: cd
+Numero: 56
+Ciudad: cd
+Provincia: cd
+Pais: cd
+-----------------------
+-----------------------
+Nombre: pepe
+Apellido: tuelo
+Calle: cd
+Numero: 56
+Ciudad: as
+Provincia: as
+Pais: as
+-----------------------
+-----------------------
+Nombre: son
+Apellido: goku
+Calle: vf
+Numero: 23
+Ciudad: vf
+Provincia: vf
+Pais: vf
+-----------------------

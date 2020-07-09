@@ -25,6 +25,7 @@ void escribirArchivoBinario(empleado emp);
 void borrarEmpleado(char apellido[]);
 int contarRegistros();
 int numeracionDeEmpleados();
+void imprimirArchivo();
 
 int main() {
 
@@ -37,11 +38,11 @@ int main() {
 
    //relleno el struct, lo envio al bloque de escritura, hay que usar ios::app para que el archivo se prepare para apilar nuevos registros al final.
 
-   cargarEmpleado(&escribir);
+   //cargarEmpleado(&escribir);
    
    //escritura del archivo binario con el empleado cargado
 
-   escribirArchivoBinario(escribir);
+   //escribirArchivoBinario(escribir);
 
    //Al fin pude hacer andar la funcion de borrado, simplemente no andaba porque me olvide de usar strcmp y estaba comparando string como si fueran enteros erroneamente.
 
@@ -49,10 +50,12 @@ int main() {
 
    //lectura del archivo
 
-   int cuenta = contarRegistros();
-   cout<<cuenta<<endl;
+   //int cuenta = contarRegistros();
+   //cout<<cuenta<<endl;
 
-   leerArchivoBinario(&leer);
+   //leerArchivoBinario(&leer);
+
+   imprimirArchivo();
    
   
    //esto es la estructura mas basica que encontre para escribir y leer struct en binarios. Hay un problema si no usas elementos de un tamanio certero en el struct. Si le pones un "string" en lugar de un char[] no podes leer saltando registros de tamanio fijo. Voy a ver como se resuelve eso otro dia.
@@ -154,7 +157,7 @@ int buscarEmpleado(char apellido[]){
 
    while(lecturaArch.read((char*)&emp,sizeof(empleado))){
      if(strcmp(emp.apellido, apellido)) {
-        //uso la propiedad aplellido porque no tengo lista la funcion que numere a los empleados. 
+        //uso la propiedad apellido porque no tengo lista la funcion que numere a los empleados. 
         //retorno la posicion del registro o su numero de empleado (cuando termine la funcion de numerar cliente)
          return emp.numeroEmp;
      } else {
@@ -187,4 +190,35 @@ int contarRegistros(){
    }
    lecturaArch.close();
    return acumulador;
+}
+
+//funcion para imprimir todo el archivo en un txt.
+
+void imprimirArchivo(){
+   ifstream binario;
+   binario.open("archivo.dat", ios::binary);
+   ofstream texto;
+   texto.open("empleados.txt");
+    if (!binario || !texto){
+        cout << "No se pudo crear el archivo" << endl;
+        
+    }
+
+    empleado emp;             
+    
+    while (binario.read((char*)&emp, sizeof(empleado))){
+        texto<<"-----------------------"<<endl;
+        texto<<"Nombre: "<<emp.nombre<<endl;
+        texto<<"Apellido: "<<emp.apellido<<endl;
+        texto<<"Calle: "<<emp.dir.calle<<endl;
+        texto<<"Numero: "<<emp.dir.numero<<endl;
+        texto<<"Ciudad: "<<emp.dir.ciudad<<endl;
+        texto<<"Provincia: "<<emp.dir.provincia<<endl;
+        texto<<"Pais: "<<emp.dir.pais<<endl;
+        texto<<"-----------------------"<<endl;
+    }
+
+    
+    binario.close();
+    texto.close();
 }
