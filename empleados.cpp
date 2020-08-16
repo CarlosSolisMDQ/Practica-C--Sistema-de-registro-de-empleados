@@ -1,8 +1,10 @@
-#include<iostream>
-#include<fstream>
-#include <cstring>
+
+
 
 #include "libreria.h"
+
+
+
 
 
 using namespace std;
@@ -41,10 +43,13 @@ int main() {
    
   
    //esto es la estructura mas basica que encontre para escribir y leer struct en binarios. Hay un problema si no usas elementos de un tamanio certero en el struct. Si le pones un "string" en lugar de un char[] no podes leer saltando registros de tamanio fijo. Voy a ver como se resuelve eso otro dia.
-
+   
+   
 
    system("pause");
    return 0;
 }
+
+
 
 
