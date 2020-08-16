@@ -44,9 +44,16 @@ int main() {
   
    //esto es la estructura mas basica que encontre para escribir y leer struct en binarios. Hay un problema si no usas elementos de un tamanio certero en el struct. Si le pones un "string" en lugar de un char[] no podes leer saltando registros de tamanio fijo. Voy a ver como se resuelve eso otro dia.
    
-   
+   SetColor(14);
+   printf("\n \n Sistema de empleados 0.1 \n \n ");
+   SetColor(15);
+   //bueno, encontre una funcion escrita por un chico en stackoverrun para cambiar el color de la letra, lo que me facilito bastante el trabajo. 
+
+    
+
 
    system("pause");
+   
    return 0;
 }
 
