@@ -48,9 +48,15 @@ int main() {
    printf("\n \n Sistema de empleados 0.1 \n \n ");
    SetColor(15);
    //bueno, encontre una funcion escrita por un chico en stackoverrun para cambiar el color de la letra, lo que me facilito bastante el trabajo. 
+   
+    cout << "\rLoading";
+        for (int i = 0; i < 10; i++) {
+            cout << ".";
+            Sleep(300);
+        }
+    cout<<endl;
 
-    
-
+    //esto de aca es un separador de "loading..." con los puntitos animados que voy a usar de separador con cada cls que use.
 
    system("pause");
    

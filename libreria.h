@@ -3,6 +3,9 @@
 #define libreria
 
 #include <windows.h>
+#include <time.h>
+#include<dos.h>
+
 #include<iostream>
 #include<fstream>
 #include <cstring>

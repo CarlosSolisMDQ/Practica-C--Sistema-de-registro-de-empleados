@@ -9,6 +9,10 @@ Basicamente un CRUD en c++ con persistencia en archivos binarios.
 
 Bueno, despues de varias semanas sin tener tiempo para joder con esto (tambien tengo que trabajar y evadir exitosamente la cuarentena medieval) empiezo a ordenar un poco el codigo y planear la interfase con el usuario.
 
-Por lo pronto creo la libreria "libreria.h" y apilo las funciones y definiciones ahi. Cuando hice la movida me saltaron errores por todos lados, ya que el nuevo archivo no leia las definiciones de los struct. La solucion que encontre para que por lo menos no aparecieran tantas luces rojas en vscode fue: hacer un #include en libreria.h y endosarle empleados.cpp que es donde estan las definiciones. Espero que ande porque aun no probe el codigo. Por otro lado, tengo que averiguar como usar colores para el menu asi no queda todo tan choto.
+Por lo pronto creo la libreria "libreria.h" y apilo las funciones y definiciones ahi. Cuando hice la movida me saltaron errores por todos lados, ya que el nuevo archivo no leia las definiciones de los struct. La solucion que encontre para que por lo menos no aparecieran tantas luces rojas en vscode fue: hacer un #include en libreria.h y endosarle todos los archivos de cabecera ahi. Tambien las definiciones de los struct. Espero que ande porque aun no probe el codigo. Por otro lado, tengo que averiguar como usar colores para el menu asi no queda todo tan choto.
 
 Tengo que mejorar la funcion de busqueda y usarla para las funciones de borrado y listado individual.
+
+16/8/20
+
+Logre encontrar una funcion que me permite cambiar el color de la letra en la consola y hice un separador con puntitos animados. Es todo por hoy, me voy a ver Umbrella Academy.
