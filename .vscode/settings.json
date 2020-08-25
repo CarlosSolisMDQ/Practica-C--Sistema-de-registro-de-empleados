@@ -38,5 +38,6 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "algorithm": "cpp"
-    }
+    },
+    "synthwave84.brightness": 0.85
 }
