@@ -16,3 +16,6 @@ Tengo que mejorar la funcion de busqueda y usarla para las funciones de borrado 
 16/8/20
 
 Logre encontrar una funcion que me permite cambiar el color de la letra en la consola y hice un separador con puntitos animados. Es todo por hoy, me voy a ver Umbrella Academy.
+
+
+28 a agosto, Una actualizacion de windows me corrompió el disco. No me quedó otra que instalar linux y ahora tengo que ver como adapto este codigo al nuevo entorno.
