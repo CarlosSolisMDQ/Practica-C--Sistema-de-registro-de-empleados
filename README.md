@@ -21,3 +21,11 @@ Logre encontrar una funcion que me permite cambiar el color de la letra en la co
 28/8/20, Una actualizacion de windows me corrompió el disco. No me quedó otra que instalar linux y ahora tengo que ver como adapto este codigo al nuevo entorno.
 
 Te maldigo bill gates!
+
+
+6/9/2020
+
+Al fin logro algo de tiempo para el hobby despues de bastante trabajo de taller, jaja. Me introduje en el mundo del crosscopiling intentando compilar para windows en linux y... no salió
+O por le menos me pareció insolitamente complicado para solamente hacer andar dos llamadas a sistema que tenía en mi codigo y la funcion que cambiaba el color de las letras. Voy a sacrificar esa funcion, las dos llamadas y santo remedio, ya salió compilando en linux.
+
+Fue una buena tarde de investigacion.
