@@ -2,16 +2,16 @@
 #ifndef libreria
 #define libreria
 
-#include <windows.h>
+//#include <windows.h>
 #include <time.h>
-#include<dos.h>
+//#include<dos.h>
 
 #include<iostream>
 #include<fstream>
 #include <cstring>
 #include "struct.h"
 
-#include <windows.h>
+
 
  
 using namespace std;
@@ -193,7 +193,7 @@ void imprimirArchivo(){
 }
 
 //funcion de cambio de color made in stackoverrun.
-
+/*
  void SetColor(int ForgC)
     {
         WORD wColor;
@@ -231,6 +231,6 @@ void imprimirArchivo(){
                */
     }
 
-}
 
-#endif
+
+#endif;
