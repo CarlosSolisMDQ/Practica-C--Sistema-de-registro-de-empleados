@@ -10,6 +10,9 @@
 #include<fstream>
 #include <cstring>
 #include "struct.h"
+//este es un archivo de cabecera de linux que agrega la llamada sleep.
+#include <unistd.h>
+
 
 
 
@@ -32,6 +35,7 @@ int contarRegistros();
 int numeracionDeEmpleados();
 void imprimirArchivo();
 void SetColor(int ForgC);
+void funcion_loading();
 
 
 //empiezo modularizando la carga, esta tiene que recibir un puntero porque retorna los valores a al struct
@@ -192,7 +196,29 @@ void imprimirArchivo(){
     texto.close();
 }
 
-//funcion de cambio de color made in stackoverrun.
+//esta funcion va a escribir en pantalla loading y unos puntitos animados
+
+void funcion_loading(){
+
+//explicaciones, el loading se carga 3 veces imprimiendo los 5 puntitos
+
+   for (int j = 0; j < 3; j++) {
+      cout << "\rLoading     \rLoading";
+//este cout es importante, imprime un loading con 5 espacios vacios para borrar los puntos anteriores y despues el loading para los puntitos
+
+      for (int i = 0; i < 5; i++) {
+         cout << ".";
+         sleep(1);
+         fflush(stdout);
+      }
+      fflush(stdout);
+      //hay que tirar un fflush despues de cada ciclo de impresion, la llamada a sistema sleep es un tanto diferente que en windows, aca te toma el numero como segundos, no milisegundos.
+   }
+   cout<<endl;
+    //el salto de linea para que el promt no te quede en el loading
+}
+
+//funcion de cambio de color made in stackoverrun, ahor no funciona porque me pasé a linux y voy a tener que recontruirla con nuevas librerias.
 /*
  void SetColor(int ForgC)
     {
