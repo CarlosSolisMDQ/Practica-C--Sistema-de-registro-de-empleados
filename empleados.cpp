@@ -52,7 +52,9 @@ int main() {
    
   
    //esto es la estructura mas basica que encontre para escribir y leer struct en binarios. Hay un problema si no usas elementos de un tamanio certero en el struct. Si le pones un "string" en lugar de un char[] no podes leer saltando registros de tamanio fijo. Voy a ver como se resuelve eso otro dia.
-   
+    
+    //la instruccion para limpiar la pantalla.
+    std::system("clear");
    
     cout<< red << "\n\nSistema de empleados 0.1\n\n ";
      
@@ -67,9 +69,11 @@ int main() {
 
     cout << endl;
 
+    std::system("clear");
+
 // esta instruccion cin.get es la version portable c++ de que lo antes en windows hacia con system(pause) o getch, para dejar al programa en ejecucion y poder leer lo escrito mientras programo.
 //Leí que es una mala practica de programacion en stackoverflow.
-    cin.get();
+    //cin.get();
 
    
    
