@@ -31,3 +31,8 @@ Fue una buena tarde de investigacion.
 Hoy en un rato libre solucioné el tema de la funcion de colores, que resultó que linux ya tiene incorporado en su consola los colores ansi. Solo era cosa de "cargar" en el cout el color adecuado. Tambien resolví como hacer la animacion de "loading" con puntitos sin las llamadas a sistema que hacia en windows. lo que me llevó a agregar un archivo de cabecera linux para poder usar la funcion sleep. Es todo por hoy, tengo que volver a planificar mi trabajo de la vida real para mañana. Cuando tenga mas tiempo libre voy a empezar el menú principal.
 
 *Tambien empecé a aprender Markdown. Para darle un poco de onda a estos readme y parecer menos provinciano.*
+
+## 11/9/20
+
+Finalmente empecé a hacer el menú. Despues de una tarde cortando madera en mi sierra de banco logré ponerme un rato en este vicio. El menú va a ser espartano, por lo menos hasta que aprenda como ponerle mas onda con el diseño.
+Lo mas probable es que tenga que retocar las funciones de manejo de empleados, pero voy a pensar en ese puente cuendo llegue a ese rio.

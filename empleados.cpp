@@ -22,6 +22,8 @@ int main() {
     const std::string magenta("\033[0;35m");
     const std::string reset("\033[0m");
 
+    int menu = 0;
+
     /*bueno, borron y cuenta nueva, voy a tratar de abordar esto usando solo metodos de c++ desde el principio*/
    
    empleado escribir;
@@ -69,7 +71,51 @@ int main() {
 
     cout << endl;
 
-    std::system("clear");
+    
+
+    char control = 'n';
+
+    while (control != 's'){
+
+        std::system("clear");
+        
+        cout <<magenta<<"Si desea ingresar un empleado, ingrese 1 \n";
+        cout <<"Si desea borrar un empleado, ingrese 2 \n";
+        cout <<"Si desea buscar un empleado, ingrese 3 \n";
+        cout <<"Si desea listar todos los empleados, ingrese 4 \n";
+        cout <<"Si desea editar un empleado, ingrese 5 \n";
+        cout <<"Si desea imprimir el listado de empleados en un archivo txt, ingrese 6 \n";
+        cout <<yellow<<"Si desea salir ingrese cualquier letra \n";
+        cout <<red<<"Ingrese la opcion: ";
+        std::cin >> menu;
+        
+        switch (menu)
+        {
+        case 1:
+            cout << "\nprueba\n";
+            break;
+        case 2:
+            cout << "\nprueba\n";
+            break;
+        case 3:
+            cout << "\nprueba\n";
+            break;
+        case 4:
+            cout << "\nprueba\n";
+            break;
+        case 5:
+            cout << "\nprueba\n";
+            break;
+        case 6:
+            cout << "\nprueba\n";
+            break;
+        default:
+            control = 's';
+            break;
+        }
+         
+    }
+    
 
 // esta instruccion cin.get es la version portable c++ de que lo antes en windows hacia con system(pause) o getch, para dejar al programa en ejecucion y poder leer lo escrito mientras programo.
 //Leí que es una mala practica de programacion en stackoverflow.
